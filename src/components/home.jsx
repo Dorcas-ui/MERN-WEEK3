@@ -1,9 +1,9 @@
 
 import {useState, useEffect} from 'react';
-import studentCard from './studentCard';
-import studentForm from './studentForm';
-import { fetchStudents, createStudent, updateStudent, deleteStudent } from "../lib/api"
+import StudentCard from './studentCard';
 import StudentForm from './studentForm';
+import { fetchStudents, createStudent, updateStudent, deleteStudent } from "../lib/api"
+
 
 export default function Home() {
 
@@ -44,12 +44,12 @@ export default function Home() {
 
     return (
         <main>
-            <StudentForm onsubmit={handleCreate} />  {/* Render the StudentForm component and pass the handleCreate function as a prop for handling form submission */}
+            <StudentForm onSubmit={handleCreate} />  {/* Render the StudentForm component and pass the handleCreate function as a prop for handling form submission */}
             {loading && <p>Loading...</p>}  {/* Display loading message if the loading state is true */}
             {error && <p className="text-red-600">{error}</p>}  {/* Display error message if the error state is not empty */}
             {students.map(s => 
             (  // Map over the students array and render a StudentCard for each student, passing the student data and handler functions as props
-                <studentCard 
+                <StudentCard 
                     key={s._id} 
                     student={s}
                     onEdit={handleEdit}

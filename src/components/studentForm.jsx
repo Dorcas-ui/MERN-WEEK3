@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-export default function StudentForm() {
+export default function StudentForm({ onSubmit }) {
     const [form, setForm] = useState({  // Initial state for the form
         name: "",
         age: "",
@@ -18,15 +18,15 @@ export default function StudentForm() {
     const handleSubmit = (e) => {  // Handle form submission
         e.preventDefault(); 
         if (!form.name || !form.age || !form.email || !form.grade)  return;  // Basic validation to ensure all fields are filled
-        onsubmit({...form, age: Number(form.age)});  // Convert age to a number before submitting
+        if (typeof onSubmit === "function") onSubmit({...form, age: Number(form.age)});  // Convert age to a number before submitting
         setForm({name: "", age: "", email: "", grade: ""});  // Reset the form after submission
     };
     return (
-        <form onsubmit={handleSubmit} className="bg-white p-4 rounded-lg shadow-md mb-6 flex gap-4">
+        <form onSubmit={handleSubmit} className="bg-white p-4 rounded-lg shadow-md mb-6 flex gap-4">
             <input 
                 name="name" 
                 value={form.name} 
-                onchange={handleChange} 
+                onChange={handleChange} 
                 placeholder="Name" 
                 className="border rounded-lg px-3 py-2  flex-1" />
             
@@ -34,25 +34,25 @@ export default function StudentForm() {
             <input 
                 name="age" 
                 value={form.age} 
-                onchange={handleChange} 
+                onChange={handleChange} 
                 placeholder="Age" 
                 className="border rounded-lg px-3 py-2  flex-1" />
 
                 <input 
                 name="email" 
                 value={form.email} 
-                onchange={handleChange} 
+                onChange={handleChange} 
                 placeholder="Email" 
                 className="border rounded-lg px-3 py-2  flex-1" />
 
             <input 
                 name="grade" 
                 value={form.grade} 
-                onchange={handleChange}  
+                onChange={handleChange}  
                 placeholder="Grade" 
                 className="border rounded-lg px-3 py-2  w-24" />
 
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Add Student</button>
+            <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Add Student</button>
         </form>
     );
 }
